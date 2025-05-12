@@ -46,3 +46,31 @@ ActiveWindow.SmallScroll Down:=-6
 End Sub
 
 ```
+
+---
+
+```vba
+
+Sub AbsoluteMacro()
+'
+' AbsoluteMacro Macro
+'
+
+'
+    Range("A3").Select
+    Selection.End(xlDown).Select
+    Range("A9").Select
+End Sub
+
+Sub RelativeMacro()
+'
+' RelativeMacro Macro
+'
+    Range("A3").Select ' like absolute macro
+   ' ActiveCell.Offset(-5, 0).Range("A1").Select // This will appear on relative macro.
+   ' It is good practice to copy the start like absolute macro
+    Selection.End(xlDown).Select
+    ActiveCell.Offset(1, 0).Range("A1").Select
+End Sub
+
+```
