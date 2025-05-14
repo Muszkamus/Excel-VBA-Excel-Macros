@@ -74,3 +74,29 @@ Sub RelativeMacro()
 End Sub
 
 ```
+
+# 11. 7 Ways to Run Macros / VBA code (incl. creative & modern buttons)
+
+- alt + F8 = Opens Macro window
+- Click macro in Dev tab
+- In the view tab, Macros > Run Macro
+- From click-access toolbar (Macros Must be turned on in the quick access)
+- Ribbon (Right click on the ribbon)
+- Insert a shape (Illustrations > Shapes), to add hover text > Put hyperlink behind the button/image (Put any letter in address)
+- Normal button (Not ActiveX Button)
+
+---
+
+# <centre> Section 3: The Object Model
+
+---
+
+## VB Guidelines & Color procedures
+
+Sub my_Macro() ==== Most used VBA Procedure is thr Sub Procedure.
+End Sub ==== This consists of a set of commands the code should execute
+
+Function my_Formula() ==== Function Procedures are commands that create formulas
+End Function === The return one value or array.
+
+Application.CutCopyMode = False ==== VBA assigns color to keywords and capitalizes code references
