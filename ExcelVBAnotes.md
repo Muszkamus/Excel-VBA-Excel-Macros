@@ -87,7 +87,7 @@ End Sub
 
 ---
 
-# <centre> Section 3: The Object Model
+# <centre> **Section 3: The Object Model**
 
 ---
 
@@ -100,3 +100,48 @@ Function my_Formula() ==== Function Procedures are commands that create formulas
 End Function === The return one value or array.
 
 Application.CutCopyMode = False ==== VBA assigns color to keywords and capitalizes code references
+
+Very useful features >
+
+- Auto Syntax Check (Checks the syntax errors) in options
+- Require Variable Decleration (It puts Option Explicit, helps with VBA efficiency) more on section 5 in options
+- Auto List Members always on (Code Snippets) in options
+
+- Ctrl + Space (Enables code snippets in specific line)
+- F5 to run the project
+- F8 to step into code
+- F9 Toggle breakpoint
+- Ctrl + Shift + F9 Clear all breakpoints
+
+---
+
+# 21. **How to Find the Object, Property & Method**
+
+---
+
+- Record the macro
+- Use the Object Library (F2)
+- F1 to the Microsoft website
+- IntelliSense (Code Snippets)
+- Ctrl + Space
+- Use the Immediate Window
+  In order to work in immediate window (Like Quokka.js), put ? before the code line
+  in order to run it, remove question mark
+
+---
+
+# 22. **Summary**
+
+---
+
+1. You refer to an object through its position in the object hierarchy. This dot is used as a separator. If you do not specify the parent, Excel assumes it's the active object.
+2. You don't need to select object to manipulate them.
+3. Objects have specific porperties & methods.
+4. Properties can return a reference to another object.
+5. Macro and VBA code is kept inside Sub Procedures.
+
+---
+
+# <centre> **Section 4: Referencing Ranges, Worksheets & Workbooks with VBA**
+
+---
