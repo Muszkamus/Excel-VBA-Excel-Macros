@@ -145,3 +145,82 @@ Very useful features >
 # <centre> **Section 4: Referencing Ranges, Worksheets & Workbooks with VBA**
 
 ---
+
+# 24. Referring to Ranges & Writing to Cells in VBA
+
+---
+
+```vba
+Option Explicit
+
+Sub ReferToCells()
+Cells.Clear
+Range("A1").Value = "1st" 'Cells(1, 1) = "1st"
+Range("A2:C2").Value = "Second"
+Range("A3:C3,E3:F3").Value = "Third"
+Range("A4,C4") = "4th"
+Range("A5", "C5") = "5th"
+Range("A" & 6, "C" & 6) = "6th"
+' Range(Cells(6, 1), Cells(6, 3)).Value = "6th"
+Range("A4:C7").Cells(4, 2).Value = "7th"
+Range("A1").Offset(7, 2).Value = "8th"
+Range("A1:B1").Offset(8, 1).Value = "9th"
+Range("LastOne").Value = "10th, LastOne"
+
+Rows("12:14").RowHeight = 30
+Range("16:16, 18:18,20:20").RowHeight = 30
+Range("H:H,J:J").ColumnWidth = 10
+Cells.Columns.AutoFit
+
+End Sub
+
+
+```
+
+For work and simplicity, these are best:
+
+**Range("A1").Value = "Hello"** – direct and intuitive
+
+**Cells(1, 1)** – great for row-column dynamic loops. Also refers to cell A1, but using row and column numbers.
+
+**Range("A1").Offset(2, 3).Value = "Moved 2 down, 3 right" **– perfect for flexible positioning. Moves from a known reference point by a number of rows and columns.
+
+**Range("LastOne").Value = "Final value" **– clean and scalable with named ranges. Refers to a named range in your Excel sheet.
+
+**Range("A" & i, "C" & i)** – easy loop integration. Creates a horizontal range from column A to C on a given row (e.g., A3:C3 if i = 3).
+
+---
+
+# 25. **Most Useful Range Properties & Methods**
+
+---
+
+| **Code Execution**           | **Description**                                                                                                                   | **Type**     |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `Value`                      | Shows the underlying value in a cell. This is the default property of the range object.                                           | Read / Write |
+| `Cells`                      | Returns a cell or range of cells within a range object.                                                                           | Read / Write |
+| `End`                        | Returns the last cell of the range. Similar to Ctrl + ↓ or ↑ or → or ←                                                            | Read-only    |
+| `Offset`                     | Returns a new range based on offset row & column arguments.                                                                       | Read / Write |
+| `Count`                      | Returns the number of cells in a range.                                                                                           | Read-only    |
+| `Column` / `Row`             | Returns the column or row number of a range. If you select more than one cell, returns the first occurrence in the range.         | Read-only    |
+| `CurrentRegion`              | Used with other properties such as `.Address`; returns the range of data.                                                         | Read-only    |
+| `EntireColumn` / `EntireRow` | Returns a range object that represents the entire row or column.                                                                  | Read-only    |
+| `Resize`                     | Changes the size of the range by defining the rows & columns for resizing.                                                        | Read / Write |
+| `Address`                    | Shows the range address including the `$` signs.                                                                                  | Read-only    |
+| `Font`                       | Returns a font object that has other properties (e.g., bold).                                                                     | Read / Write |
+| `Interior`                   | Used with other properties such as `.Color` to set colors.                                                                        | Read / Write |
+| `Formula`                    | Places a formula in a cell. Use English syntax for compatibility. Use `FormulaLocal` if using a different Excel language version. | Read / Write |
+| `NumberFormat`               | Defines number format (uses English version).                                                                                     | Read / Write |
+| `Text`                       | Returns the data as a string & includes formatting.                                                                               | Read-only    |
+| `HasFormula`                 | Returns `True`, `False`, or `Null` if the range has a mix.                                                                        | Read-only    |
+
+| **Code Execution** | **Description**                                                                                                                                                                                                    | **Type** |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| `Copy`             | This is a practical method because it has paste destination as its argument. This means you just need one line of code.                                                                                            |          |
+| `PasteSpecial`     | Allows usage of Excel’s Paste Special options. To use more than one option, repeat the line of code with the new option.                                                                                           |          |
+| `Clear`            | Deletes contents and cell formatting in a specified range.                                                                                                                                                         |          |
+| `Delete`           | Deletes the cells and shifts the cell around the area to fill up the deleted range. The delete method uses an argument to define how to shift the cells. Select `xlToLeft` or `xlUp`.                              |          |
+| `SpecialCells`     | Returns a range that matches the specified cell types. This method has 2 arguments. `xlCellType` is required (e.g. cells with formulas or comments) and an optional argument defines more detail (e.g. constants). |          |
+| `Sort`             | Sorts a range of values.                                                                                                                                                                                           |          |
+| `PrintOut`         | Also a method of the worksheet object.                                                                                                                                                                             |          |
+| `Select`           | Used by the macro recorder to select a cell, but when writing VBA, it is not necessary to select objects. Code is faster without selecting.                                                                        |          |
