@@ -183,9 +183,9 @@ For work and simplicity, these are best:
 
 **Cells(1, 1)** – great for row-column dynamic loops. Also refers to cell A1, but using row and column numbers.
 
-**Range("A1").Offset(2, 3).Value = "Moved 2 down, 3 right" **– perfect for flexible positioning. Moves from a known reference point by a number of rows and columns.
+**Range("A1").Offset(2, 3).Value = "Moved 2 down, 3 right"**– perfect for flexible positioning. Moves from a known reference point by a number of rows and columns.
 
-**Range("LastOne").Value = "Final value" **– clean and scalable with named ranges. Refers to a named range in your Excel sheet.
+**Range("LastOne").Value = "Final value"**– clean and scalable with named ranges. Refers to a named range in your Excel sheet.
 
 **Range("A" & i, "C" & i)** – easy loop integration. Creates a horizontal range from column A to C on a given row (e.g., A3:C3 if i = 3).
 
@@ -224,3 +224,28 @@ For work and simplicity, these are best:
 | `Sort`             | Sorts a range of values.                                                                                                                                                                                           |          |
 | `PrintOut`         | Also a method of the worksheet object.                                                                                                                                                                             |          |
 | `Select`           | Used by the macro recorder to select a cell, but when writing VBA, it is not necessary to select objects. Code is faster without selecting.                                                                        |          |
+
+---
+
+# 26. **4 Methods to Find the Last Row of your Range**
+
+---
+
+1- Use the End Property of the Range Object
+
+- Range("K6").Value = Cells(Rows.Count,1).End(xlUp.Row)
+- Range("K6").Value = Range("A4").End(xlDown).Row
+- Range("K8").Value = Cells(4,Columns.Count).End(xlToLeft).Column
+
+2- Use the CurrentRegion Property of the Range Object
+
+- Range("K10").Value = Range("A4").CurrentRegion.Rows.Count
+
+3- Use the SpecialCells Method of the Range Object
+
+- Range("K11").Value = Cells.SpecialCells(xlTypeLastCell).Row
+  4- Use the UsedRange Proprty of the Worksheet Object
+
+---
+
+# 27. **Copying & resizing a variably sized range**
