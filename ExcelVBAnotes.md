@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD025 -->
+<!-- markdownlint-disable MD029 -->
 <!-- markdownlint-disable MD033 -->
 
 # <centre> # **Section2: Your First Macro**
@@ -249,3 +250,207 @@ For work and simplicity, these are best:
 ---
 
 # 27. **Copying & resizing a variably sized range**
+
+---
+
+1. Copy Method
+
+```vba
+Range("A4:E10").Copy.Range("J4")
+' Copies a fixed-size range (A4:E10) and pastes it starting at J4.
+Range("A4").CurrentRegion.Copy.Range("J4")
+' Dynamically copies the entire block of contiguous data starting from A4, including all directions until empty cells are hit.
+```
+
+2. Paste Special
+
+```vba
+Range("A4").CurrentRegion.Copy
+'First line copies the dynamic range.
+Range("J20").PasteSpecial xlPasteValuesAndNumberFormats
+'Second line pastes only values and formatting (no formulas or links).
+Range("J20").PasteSpecial xlPasteComments
+'Third line pastes just comments.
+```
+
+3. Resize Property with Copy Method
+
+```vba
+Range("A4").CurrentRegion
+```
+
+```vba
+Application.CutCopyMode = False 'Cancels the copy "marching ants" and clipboard state.
+```
+
+---
+
+# 28. **Properly Referencing Worksheets**
+
+---
+
+```vba
+
+ActiveSheet ' Refers to the sheet where the macro is currently running
+Worksheets(6).Select ' Refers to the 6th worksheet in the workbook
+Sheets(6).Select ' Same as above but includes chart sheets too
+Sheet6.Range("A3").Value = "" ' Refers to a sheet by its code name
+```
+
+Better examples >
+
+```vba
+Worksheets("SalesData").Range("A1").Value = "Loaded"
+'By Name (less safe than code name, but readable)
+ThisWorkbook.Worksheets("Summary").Range("A1").Value = "Updated"
+'ThisWorkbook ensures it works on the workbook containing the code, not just any active workbook.
+SalesSheet.Range("B2").Value = "Final"
+'Where SalesSheet is the code name you set in the VBA editor (left pane, not sheet tab).
+```
+
+---
+
+# 29. **Properly Referencing Workbooks**
+
+---
+
+```vba
+
+ActiveWorkbook ' Refers to the workbook that is currently active (on top).
+' ⚠️ Use with caution — it can change if the user clicks another workbook.
+
+' --------------------------
+
+' Referring by index number (e.g., the 1st workbook opened in this session)
+' ⚠️ Not recommended — fragile and not readable
+Workbooks(1) ' Refers to the first opened workbook
+
+' --------------------------
+
+' Referring to a workbook by its name (must be open!)
+Workbooks("Deskbook.xlsx").Sheets(1).Range("A3").Value = "I will copy data here"
+' ✅ Safer method — clearly identifies which workbook and sheet to use
+' ⚠️ The workbook name must match exactly, including extension (e.g., .xlsm, .xlsx)
+
+' --------------------------
+
+ThisWorkbook ' Refers to the workbook **where this VBA code is written**
+' ✅ Very reliable — doesn't change even if another workbook is active
+' Best used when your macro always runs from a specific workbook
+
+' --------------------------
+
+' Opening another workbook from a file path
+Application.Workbooks.Open("C:\Users\YourName\Documents\Data.xlsx")
+' ✅ Use this to load external files
+
+' --------------------------
+
+' Closing the currently active workbook and saving changes
+ActiveWorkbook.Close SaveChanges:=True
+' ⚠️ Only use if you're sure which workbook is active — safer to reference by name or object
+```
+
+- Always use ThisWorkbook if your macro is tied to your own workbook (like a tool or template).
+
+- Avoid using ActiveWorkbook unless you're handling user-driven tasks (like dragging files in).
+
+- For automation, it's best to assign opened workbooks to variables:
+
+---
+
+# <centre> Section 5: Working with Variables
+
+---
+
+# 35. **Declaring Variables, Arrays & Constants (Role of Option Explicit)**
+
+---
+
+```vba
+Option Explicit  ' Forces explicit declaration of all variables — same idea as "use strict" in JavaScript
+                 ' Prevents bugs from typos or undeclared variables
+
+Public Sub DefiningVariables()
+
+    ' Declare two Long integers to hold row numbers (like let lastRow, firstRow in JS)
+    Dim lastRow As Long, FirstRow As Long
+
+    ' Assign the total number of rows in the worksheet to lastRow (1,048,576 in Excel 365)
+    Let lastRow = Rows.Count
+    Debug.Print lastRow  ' Print to the Immediate Window (like console.log)
+
+    ' Declare a fixed-size array of 12 elements to hold month names
+    Dim MyMonth(1 To 12) As String
+    MyMonth(1) = "Jan"
+    MyMonth(2) = "Feb"
+    MyMonth(12) = "Dec"
+    ' This is similar to: const myMonth = []; myMonth[0] = "Jan";
+
+    ' Declare a 2D array (12 rows × 3 columns), type Variant allows mixed data types
+    Dim MonthSales(1 To 12, 1 To 3) As Variant
+    ' Similar to: let monthSales = Array(12).fill().map(() => Array(3));
+
+    ' Declare a constant — its value cannot be changed later
+    Const myScenario As String = "Actual"
+    ' Like: const myScenario = "Actual";
+
+End Sub
+```
+
+---
+
+# 36. **Using Object Variables (Set statement)**
+
+---
+
+Variables can also hold objects. Common objects are:
+
+```vba
+Dim NewBook as WorkBook 'Workbook Object
+Dim NewSheet As WorkSheet 'Worksheet Object
+Dim NewRange As Range 'Range Object
+```
+
+To Assign variables to objects, you need to use the SET statement
+
+```vba
+Set NewBook = Workbooks.Add
+
+'Example
+
+Option Explicit  ' Enforces variable declaration to avoid bugs from typos
+
+Public Sub DefiningVariables()
+
+    ' Declare a Workbook object to store the new workbook
+    Dim NewBook As Workbook
+
+    ' Declare a Worksheet object to refer to the first sheet in that new workbook
+    Dim NewSheet As Worksheet
+
+    ' Create a new workbook and assign it to the NewBook variable
+    Set NewBook = Workbooks.Add
+
+    ' Get the first worksheet from the new workbook and assign it to NewSheet
+    Set NewSheet = NewBook.Sheets(1)
+
+    ' Write the value "New One" into cell A1 of the new worksheet
+    NewSheet.Range("A1").Value = "New One"
+
+    ' (Optional) Rename the worksheet to make it clearer
+    NewSheet.Name = "Summary"
+
+    ' (Optional) Autofit column A to match content width
+    NewSheet.Columns("A").AutoFit
+
+    ' (Optional) Save the new workbook to a specified path
+    NewBook.SaveAs Filename:="C:\Users\YourName\Documents\NewFile.xlsx"
+
+    ' (Optional) Close the workbook after saving
+    NewBook.Close SaveChanges:=False
+
+End Sub
+
+
+```
