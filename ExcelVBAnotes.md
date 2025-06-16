@@ -454,3 +454,185 @@ End Sub
 
 
 ```
+
+---
+
+# 37. **Scoping Variables**
+
+---
+
+1. Procedure: Variables exists only when the procedures run. Dim is inside the procedure. Memory is released afted procedure ends.
+
+```vba
+Sub Defining_Variables()
+    Dim LastRow As Long, FirstRow as Long
+    '---code
+End Sub
+```
+
+2. Module: Variable exists for All Procedures within the module. Dim is outside any procedure. Typically right below **Option explicit**. Value is kept in memory after procedure completes.
+
+```vba
+Option Explicit
+Dim LastRow As Long, FirstRow as Long
+
+Sub Defining_Variables()
+    '---code
+End Sub
+```
+
+3. All modules & procedures: Variables exists for All Modules and all Procedures. USe the keyword "Public" to declare these variables. Can be declared in any Module before the first procedure. Value is kept in memory after procedure completes.
+
+```vba
+Option Explicit
+Public LastRow As Long, FirstRow as Long
+
+Sub Defining_Variables()
+    '---code
+End Sub
+```
+
+---
+
+# <centre> Section 6: **Looping through Collections & Making Decisions**
+
+---
+
+# 41. **With & End With for Easier Code Writing**
+
+---
+
+```vba
+Option Explicit
+
+Sub With_Change_Font()
+
+Dim MyRange As Range
+    Set MyRange = Range("A10", "A" & Cells(Rows.Count, 1).End(xlUp).Row)
+    Debug.Print MyRange.Address 'Shows the exact cells we are working with
+    With MyRange.Font 'The With ... End With block in VBA is used to simplify and optimize code when you're repeatedly accessing properties or methods of the same object.
+        .Name = "Arial"
+        .Size = 12
+        .Bold = True
+
+    End With
+
+End Sub
+
+Sub With_Reset_Font()
+
+Dim MyRange As Range
+    Set MyRange = Range("A10", "A" & Cells(Rows.Count, 1).End(xlUp).Row)
+    Debug.Print MyRange.Address 'Shows the exact cells we are working with
+    With MyRange.Font
+        .Name = "Calibri"
+        .Size = 11
+        .Bold = False
+
+    End With
+
+End Sub
+```
+
+---
+
+# 42. **For Each to Loop Through Collections (sheets, ranges etc.) in one go**
+
+---
+
+```vba
+Sub Protect_All_Sheets()
+Dim Sh As Worksheet
+For Each Sh In ThisWorkbook.Worksheets
+    Sh.Protect '"test"
+    Debug.Print Sh.Name
+
+Next Sh
+End Sub
+```
+
+---
+
+# 43. **IF Then (Else, ElseIF) for Conditional Outcomes**
+
+---
+
+```vba
+If Range("B3").Value <> "" Then 'This means not equal to, same as ! in JS, otherwise it is =
+    Range("C3").Value = Range("B3").Value
+
+End If
+```
+
+```vba
+Sub Protect_Special_Sheets()
+
+    Dim Sh As Worksheet
+
+    For Each Sh In ThisWorkbook.Worksheets
+
+        If Sh.Name = "Purpose" Then
+            ' Protect "Purpose" sheet — don't allow formatting (default protection)
+            Sh.Protect
+
+        ElseIf Sh.CodeName = "shWith" Then
+            ' Protect sheet using CodeName
+            Sh.Protect
+
+        Else
+            ' Other sheets – nothing happens
+            ' Add other code here if needed
+        End If
+
+    Next Sh
+
+End Sub
+
+
+```
+
+# 44. **Select Case as Alternative for Many IF Statements**
+
+```vba
+Sub SimpleCase()
+
+    Select Case Range("B3").Value
+        Case 1 To 200
+            Range("C3").Value = "Good"
+        Case 0
+            Range("C3").Value = ""
+        Case Is > 200
+            Range("C3").Value = "Excellent"
+        Case Else
+            Range("C3").Value = "Bad"
+
+    End Select
+
+End Sub
+```
+
+---
+
+# 45. **Goto Statement to Change Program Flow**
+
+---
+
+- Mainly for error handling
+- Execute a different part of code depending on a condition
+
+```vba
+Sub Simple_GoTo()
+
+    Range("D3").Value = "" ' Clear previous message
+
+    If IsError(Range("B3").Value) Then GoTo GetOut
+
+    ' No error: copy value from B3 to C3
+    Range("C3").Value = Range("B3").Value
+    Exit Sub
+
+GetOut:
+    Range("D3").Value = "You have an error in the cell"
+
+End Sub
+```
