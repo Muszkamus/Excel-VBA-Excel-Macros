@@ -636,3 +636,86 @@ GetOut:
 
 End Sub
 ```
+
+---
+
+# 48. **Bonus: Unhide All Sheets in One Go**
+
+```vba
+Sub Unhide_All()
+    Dim sh As Worksheet
+    For Each sh In ThisWorkbook.Worksheets
+    sh.Visible = True
+    Next sh
+End Sub
+
+```
+
+We can also use Personal Macro Workbook to apply it everywhere, even for non macro worksheets. But first, do dummy record as personal one, and do this >
+
+```vba
+
+Sub Unhide_All()
+    Dim sh As Worksheet
+    For Each sh In Worksheets
+    sh.Visible = True
+    Next sh
+End Sub
+```
+
+---
+
+# <centre> Section 7: **Useful Built-in Functions**
+
+---
+
+# 50.**Overview: VBA versus Worksheet Functions**
+
+---
+
+```vba
+Option Explicit
+
+Sub VBA_Excel_Functions()
+    With Sheet1
+
+    .Range("B3").Value = VBA.DateTime.Date 'Get todays date (Date works too)
+    .Range("B6").Value = VBA.UCase(.Range("A6").Value) ' B6 will be A6 but uppercase
+    .Range("B7").Value = VBA.LCase(.Range("A7").Value)
+    .Range("B8").Value = VBA.StrConv(.Range("A8"), vbProperCase)
+    .Range("B9").Value = Excel.Application.WorksheetFunction.Proper(.Range("A9").Value)
+
+
+    Dim myRange As Range 'define variable
+    Set myRange = .Range("A13").CurrentRegion 'Give variable the amount
+
+    .Range("B11").Value = Excel.WorksheetFunction.Max(myRange) 'Find max in the variable
+
+    End With
+
+End Sub
+
+```
+
+---
+
+# 51. **Most Useful VBA Functions**
+
+---
+
+```vba
+Sub VBA_Functions()
+
+Range("B3").Value = VBA.Month(VBA.Date) 'Numeric
+Range("B4").Value = VBA.MonthName(VBA.Month(VBA.Date)) 'String
+Range("B9").Value = VBA.IsEmpty(Range("A9")) 'If there is a value in B9, print the outcome in A9
+
+End Sub
+
+```
+
+---
+
+# 52. **Message Box (also with Yes, No buttons)**
+
+---
