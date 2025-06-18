@@ -719,3 +719,58 @@ End Sub
 # 52. **Message Box (also with Yes, No buttons)**
 
 ---
+
+```vba
+Sub Simple_MsgBox()
+
+VBA.Interaction.MsgBox "Hello"
+
+End Sub
+
+```
+
+```vba
+Sub Simple_MsgBox()
+
+
+MsgBox prompt:="Hello " & Excel.Application.UserName & "." & VBA.Constants.vbNewLine & "Thanks for stopping by.", Title:="Welcome!"
+
+End Sub
+
+```
+
+```vba
+Sub Yes_No_MsgBox()
+Dim Answer As VbMsgBoxResult
+Answer = MsgBox("Are you sure?", vbYesNo + vbQuestion + vbDefaultButton2, "Clear Cells") 'Default button is the one chosen straight away, in this instance button no
+
+If Answer = vbYes Then
+    Range("A7:B9").Clear
+Else
+        Exit Sub
+End If
+End Sub
+```
+
+---
+
+# 53. **Input Box (VBA InputBox Function)**
+
+---
+
+```vba
+Sub VBA_Simple_InputBox()
+
+    Dim myInp   As String
+    myInp = VBA.InputBox("Please input subtitle", "subtitle please")
+    If myInp = "" Then Exit Sub
+    Range("A2").Value = Excel.WorksheetFunction.Proper(myInp)
+
+End Sub
+```
+
+---
+
+# <centre> Section 8: **Debugging, Error Handling & Procedure Scope**
+
+---
