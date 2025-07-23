@@ -12,7 +12,7 @@
 
 Code below is recorded via Find and Select option in Excel. Home > Find and Select
 
-```vba
+```vb
 Sub SpecialCells()
 '
 ' SpecialCells Macro
@@ -50,7 +50,7 @@ End Sub
 
 ---
 
-```vba
+```vb
 
 Sub AbsoluteMacro()
 '
@@ -76,7 +76,7 @@ End Sub
 
 ```
 
-# 11. 7 Ways to Run Macros / VBA code (incl. creative & modern buttons)
+# 11. 7 Ways to Run Macros / vb code (incl. creative & modern buttons)
 
 - alt + F8 = Opens Macro window
 - Click macro in Dev tab
@@ -94,18 +94,18 @@ End Sub
 
 ## VB Guidelines & Color procedures
 
-Sub my_Macro() ==== Most used VBA Procedure is thr Sub Procedure.
+Sub my_Macro() ==== Most used vb Procedure is thr Sub Procedure.
 End Sub ==== This consists of a set of commands the code should execute
 
 Function my_Formula() ==== Function Procedures are commands that create formulas
 End Function === The return one value or array.
 
-Application.CutCopyMode = False ==== VBA assigns color to keywords and capitalizes code references
+Application.CutCopyMode = False ==== vb assigns color to keywords and capitalizes code references
 
 Very useful features >
 
 - Auto Syntax Check (Checks the syntax errors) in options
-- Require Variable Decleration (It puts Option Explicit, helps with VBA efficiency) more on section 5 in options
+- Require Variable Decleration (It puts Option Explicit, helps with vb efficiency) more on section 5 in options
 - Auto List Members always on (Code Snippets) in options
 
 - Ctrl + Space (Enables code snippets in specific line)
@@ -139,19 +139,19 @@ Very useful features >
 2. You don't need to select object to manipulate them.
 3. Objects have specific porperties & methods.
 4. Properties can return a reference to another object.
-5. Macro and VBA code is kept inside Sub Procedures.
+5. Macro and vb code is kept inside Sub Procedures.
 
 ---
 
-# <centre> **Section 4: Referencing Ranges, Worksheets & Workbooks with VBA**
+# <centre> **Section 4: Referencing Ranges, Worksheets & Workbooks with vb**
 
 ---
 
-# 24. Referring to Ranges & Writing to Cells in VBA
+# 24. Referring to Ranges & Writing to Cells in vb
 
 ---
 
-```vba
+```vb
 Option Explicit
 
 Sub ReferToCells()
@@ -224,7 +224,7 @@ For work and simplicity, these are best:
 | `SpecialCells`     | Returns a range that matches the specified cell types. This method has 2 arguments. `xlCellType` is required (e.g. cells with formulas or comments) and an optional argument defines more detail (e.g. constants). |          |
 | `Sort`             | Sorts a range of values.                                                                                                                                                                                           |          |
 | `PrintOut`         | Also a method of the worksheet object.                                                                                                                                                                             |          |
-| `Select`           | Used by the macro recorder to select a cell, but when writing VBA, it is not necessary to select objects. Code is faster without selecting.                                                                        |          |
+| `Select`           | Used by the macro recorder to select a cell, but when writing vb, it is not necessary to select objects. Code is faster without selecting.                                                                         |          |
 
 ---
 
@@ -255,7 +255,7 @@ For work and simplicity, these are best:
 
 1. Copy Method
 
-```vba
+```vb
 Range("A4:E10").Copy.Range("J4")
 ' Copies a fixed-size range (A4:E10) and pastes it starting at J4.
 Range("A4").CurrentRegion.Copy.Range("J4")
@@ -264,7 +264,7 @@ Range("A4").CurrentRegion.Copy.Range("J4")
 
 2. Paste Special
 
-```vba
+```vb
 Range("A4").CurrentRegion.Copy
 'First line copies the dynamic range.
 Range("J20").PasteSpecial xlPasteValuesAndNumberFormats
@@ -275,11 +275,11 @@ Range("J20").PasteSpecial xlPasteComments
 
 3. Resize Property with Copy Method
 
-```vba
+```vb
 Range("A4").CurrentRegion
 ```
 
-```vba
+```vb
 Application.CutCopyMode = False 'Cancels the copy "marching ants" and clipboard state.
 ```
 
@@ -289,7 +289,7 @@ Application.CutCopyMode = False 'Cancels the copy "marching ants" and clipboard 
 
 ---
 
-```vba
+```vb
 
 ActiveSheet ' Refers to the sheet where the macro is currently running
 Worksheets(6).Select ' Refers to the 6th worksheet in the workbook
@@ -299,13 +299,13 @@ Sheet6.Range("A3").Value = "" ' Refers to a sheet by its code name
 
 Better examples >
 
-```vba
+```vb
 Worksheets("SalesData").Range("A1").Value = "Loaded"
 'By Name (less safe than code name, but readable)
 ThisWorkbook.Worksheets("Summary").Range("A1").Value = "Updated"
 'ThisWorkbook ensures it works on the workbook containing the code, not just any active workbook.
 SalesSheet.Range("B2").Value = "Final"
-'Where SalesSheet is the code name you set in the VBA editor (left pane, not sheet tab).
+'Where SalesSheet is the code name you set in the vb editor (left pane, not sheet tab).
 ```
 
 ---
@@ -314,7 +314,7 @@ SalesSheet.Range("B2").Value = "Final"
 
 ---
 
-```vba
+```vb
 
 ActiveWorkbook ' Refers to the workbook that is currently active (on top).
 ' ⚠️ Use with caution — it can change if the user clicks another workbook.
@@ -334,7 +334,7 @@ Workbooks("Deskbook.xlsx").Sheets(1).Range("A3").Value = "I will copy data here"
 
 ' --------------------------
 
-ThisWorkbook ' Refers to the workbook **where this VBA code is written**
+ThisWorkbook ' Refers to the workbook **where this vb code is written**
 ' ✅ Very reliable — doesn't change even if another workbook is active
 ' Best used when your macro always runs from a specific workbook
 
@@ -367,7 +367,7 @@ ActiveWorkbook.Close SaveChanges:=True
 
 ---
 
-```vba
+```vb
 Option Explicit  ' Forces explicit declaration of all variables — same idea as "use strict" in JavaScript
                  ' Prevents bugs from typos or undeclared variables
 
@@ -406,7 +406,7 @@ End Sub
 
 Variables can also hold objects. Common objects are:
 
-```vba
+```vb
 Dim NewBook as WorkBook 'Workbook Object
 Dim NewSheet As WorkSheet 'Worksheet Object
 Dim NewRange As Range 'Range Object
@@ -414,7 +414,7 @@ Dim NewRange As Range 'Range Object
 
 To Assign variables to objects, you need to use the SET statement
 
-```vba
+```vb
 Set NewBook = Workbooks.Add
 
 'Example
@@ -463,7 +463,7 @@ End Sub
 
 1. Procedure: Variables exists only when the procedures run. Dim is inside the procedure. Memory is released afted procedure ends.
 
-```vba
+```vb
 Sub Defining_Variables()
     Dim LastRow As Long, FirstRow as Long
     '---code
@@ -472,7 +472,7 @@ End Sub
 
 2. Module: Variable exists for All Procedures within the module. Dim is outside any procedure. Typically right below **Option explicit**. Value is kept in memory after procedure completes.
 
-```vba
+```vb
 Option Explicit
 Dim LastRow As Long, FirstRow as Long
 
@@ -483,7 +483,7 @@ End Sub
 
 3. All modules & procedures: Variables exists for All Modules and all Procedures. USe the keyword "Public" to declare these variables. Can be declared in any Module before the first procedure. Value is kept in memory after procedure completes.
 
-```vba
+```vb
 Option Explicit
 Public LastRow As Long, FirstRow as Long
 
@@ -502,7 +502,7 @@ End Sub
 
 ---
 
-```vba
+```vb
 Option Explicit
 
 Sub With_Change_Font()
@@ -510,7 +510,7 @@ Sub With_Change_Font()
 Dim MyRange As Range
     Set MyRange = Range("A10", "A" & Cells(Rows.Count, 1).End(xlUp).Row)
     Debug.Print MyRange.Address 'Shows the exact cells we are working with
-    With MyRange.Font 'The With ... End With block in VBA is used to simplify and optimize code when you're repeatedly accessing properties or methods of the same object.
+    With MyRange.Font 'The With ... End With block in vb is used to simplify and optimize code when you're repeatedly accessing properties or methods of the same object.
         .Name = "Arial"
         .Size = 12
         .Bold = True
@@ -540,7 +540,7 @@ End Sub
 
 ---
 
-```vba
+```vb
 Sub Protect_All_Sheets()
 Dim Sh As Worksheet
 For Each Sh In ThisWorkbook.Worksheets
@@ -557,14 +557,14 @@ End Sub
 
 ---
 
-```vba
+```vb
 If Range("B3").Value <> "" Then 'This means not equal to, same as ! in JS, otherwise it is =
     Range("C3").Value = Range("B3").Value
 
 End If
 ```
 
-```vba
+```vb
 Sub Protect_Special_Sheets()
 
     Dim Sh As Worksheet
@@ -593,7 +593,7 @@ End Sub
 
 # 44. **Select Case as Alternative for Many IF Statements**
 
-```vba
+```vb
 Sub SimpleCase()
 
     Select Case Range("B3").Value
@@ -620,7 +620,7 @@ End Sub
 - Mainly for error handling
 - Execute a different part of code depending on a condition
 
-```vba
+```vb
 Sub Simple_GoTo()
 
     Range("D3").Value = "" ' Clear previous message
@@ -641,7 +641,7 @@ End Sub
 
 # 48. **Bonus: Unhide All Sheets in One Go**
 
-```vba
+```vb
 Sub Unhide_All()
     Dim sh As Worksheet
     For Each sh In ThisWorkbook.Worksheets
@@ -653,7 +653,7 @@ End Sub
 
 We can also use Personal Macro Workbook to apply it everywhere, even for non macro worksheets. But first, do dummy record as personal one, and do this >
 
-```vba
+```vb
 
 Sub Unhide_All()
     Dim sh As Worksheet
@@ -669,20 +669,20 @@ End Sub
 
 ---
 
-# 50.**Overview: VBA versus Worksheet Functions**
+# 50.**Overview: vb versus Worksheet Functions**
 
 ---
 
-```vba
+```vb
 Option Explicit
 
-Sub VBA_Excel_Functions()
+Sub vb_Excel_Functions()
     With Sheet1
 
-    .Range("B3").Value = VBA.DateTime.Date 'Get todays date (Date works too)
-    .Range("B6").Value = VBA.UCase(.Range("A6").Value) ' B6 will be A6 but uppercase
-    .Range("B7").Value = VBA.LCase(.Range("A7").Value)
-    .Range("B8").Value = VBA.StrConv(.Range("A8"), vbProperCase)
+    .Range("B3").Value = vb.DateTime.Date 'Get todays date (Date works too)
+    .Range("B6").Value = vb.UCase(.Range("A6").Value) ' B6 will be A6 but uppercase
+    .Range("B7").Value = vb.LCase(.Range("A7").Value)
+    .Range("B8").Value = vb.StrConv(.Range("A8"), vbProperCase)
     .Range("B9").Value = Excel.Application.WorksheetFunction.Proper(.Range("A9").Value)
 
 
@@ -699,16 +699,16 @@ End Sub
 
 ---
 
-# 51. **Most Useful VBA Functions**
+# 51. **Most Useful vb Functions**
 
 ---
 
-```vba
-Sub VBA_Functions()
+```vb
+Sub vb_Functions()
 
-Range("B3").Value = VBA.Month(VBA.Date) 'Numeric
-Range("B4").Value = VBA.MonthName(VBA.Month(VBA.Date)) 'String
-Range("B9").Value = VBA.IsEmpty(Range("A9")) 'If there is a value in B9, print the outcome in A9
+Range("B3").Value = vb.Month(vb.Date) 'Numeric
+Range("B4").Value = vb.MonthName(vb.Month(vb.Date)) 'String
+Range("B9").Value = vb.IsEmpty(Range("A9")) 'If there is a value in B9, print the outcome in A9
 
 End Sub
 
@@ -720,26 +720,26 @@ End Sub
 
 ---
 
-```vba
+```vb
 Sub Simple_MsgBox()
 
-VBA.Interaction.MsgBox "Hello"
+vb.Interaction.MsgBox "Hello"
 
 End Sub
 
 ```
 
-```vba
+```vb
 Sub Simple_MsgBox()
 
 
-MsgBox prompt:="Hello " & Excel.Application.UserName & "." & VBA.Constants.vbNewLine & "Thanks for stopping by.", Title:="Welcome!"
+MsgBox prompt:="Hello " & Excel.Application.UserName & "." & vb.Constants.vbNewLine & "Thanks for stopping by.", Title:="Welcome!"
 
 End Sub
 
 ```
 
-```vba
+```vb
 Sub Yes_No_MsgBox()
 Dim Answer As VbMsgBoxResult
 Answer = MsgBox("Are you sure?", vbYesNo + vbQuestion + vbDefaultButton2, "Clear Cells") 'Default button is the one chosen straight away, in this instance button no
@@ -754,15 +754,15 @@ End Sub
 
 ---
 
-# 53. **Input Box (VBA InputBox Function)**
+# 53. **Input Box (vb InputBox Function)**
 
 ---
 
-```vba
-Sub VBA_Simple_InputBox()
+```vb
+Sub vb_Simple_InputBox()
 
     Dim myInp   As String
-    myInp = VBA.InputBox("Please input subtitle", "subtitle please")
+    myInp = vb.InputBox("Please input subtitle", "subtitle please")
     If myInp = "" Then Exit Sub
     Range("A2").Value = Excel.WorksheetFunction.Proper(myInp)
 
@@ -774,3 +774,135 @@ End Sub
 # <centre> Section 8: **Debugging, Error Handling & Procedure Scope**
 
 ---
+
+# 60. **Error Handling: Different Methods**
+
+---
+
+- 🔹 1. Basic Input Validation (If Statement)
+
+```vb
+  If WorksheetFunction.Count(Range("A1:A10")) >= 3 Then
+  ' Safe to proceed
+  End If
+```
+
+🔹 2. On Error GoTo [Label]
+Redirects to error handling code when an error occurs.
+
+```vb
+On Error GoTo ErrorHandler
+
+' Your main code here
+
+Exit Sub
+
+ErrorHandler:
+MsgBox "An error has occurred."
+```
+
+🔹 3. On Error Resume Next
+
+```vb
+
+On Error Resume Next
+Range("A1").Value = 1 / 0 ' This will error, but be ignored
+On Error GoTo 0 ' Resume normal error handling
+```
+
+🔹 4. On Error GoTo Label + Error Number Check
+
+```vb
+On Error GoTo ErrorHandler
+
+' Your code here that might trigger error 424
+
+Exit Sub
+
+ErrorHandler:
+Select Case Err.Number
+    Case 424 ' Object required (e.g., user clicked Cancel)
+        Exit Sub
+    Case Else
+        MsgBox "Error " & Err.Number & ": " & Err.Description
+End Select
+```
+
+🔹 5. Prevent Error Message on Successful Completion
+
+```vb
+On Error GoTo ErrorHandler
+
+' Code that may error
+
+Exit Sub ' Skip the error handler if everything was OK
+
+ErrorHandler:
+MsgBox "Something went wrong."
+```
+
+---
+
+# 61. **Faster Code by Suppressing Pop-ups & Flickering Screen**
+
+---
+
+```vb
+Sub Slower_code()
+'for tab Faster
+    Dim ShNew As Worksheet
+    Dim cell As Range
+    Application.StatusBar = "Wait"
+    Set ShNew = Worksheets.Add
+    For Each cell In ShNew.Range("A1:A100000")
+        cell.Value = 10
+    Next cell
+
+    ShNew.Delete
+    Sheet8.Select
+    Application.StatusBar = ""
+
+End Sub
+```
+
+```vb
+Sub Faster_Code()
+'for tab Faster
+    Dim ShNew As Worksheet
+    Dim cell As Range
+
+    'turn off some features
+    With Application
+        .StatusBar = "Short wait"
+        .ScreenUpdating = False
+        .DisplayAlerts = False
+        .Calculation = xlCalculationManual
+    End With
+
+    Set ShNew = Worksheets.Add
+
+    For Each cell In ShNew.Range("A1:A100000")
+        cell.Value = 10
+    Next cell
+
+    ShNew.Delete
+    Sheet8.Select
+
+    'turn features on again
+    With Application
+        .ScreenUpdating = True
+        .Calculation = xlCalculationAutomatic
+        .DisplayAlerts = True
+        .StatusBar = ""
+        'in case you have used the copy and pastespecial methods, you could have a lot of data on the clipboard.
+        .Application.CutCopyMode = False
+    End With
+
+End Sub
+```
+
+---
+
+# 62. **Procedure Scope & Running one Sub from Another**
+
+VBA sub procedures are public by default and can be called from other subs using Call SubName or just SubName. Use Private to limit access within the same module and hide subs from the macro list. Breaking code into smaller subs (e.g., Entry_Point, Exit_Point) improves readability, reusability, and helps manage repeated setup/cleanup tasks. It’s cleaner, safer, and easier to maintain.
